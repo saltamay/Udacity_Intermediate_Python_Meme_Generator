@@ -5,3 +5,6 @@ class QuoteModel:
 
     def __str__(self) -> str:
         return f'<{self.body} - {self.author}'
+
+    def __repr__(self) -> str:
+        return f'<{self.body} - {self.author}'
