@@ -22,7 +22,7 @@ class PDFIngestor(IngestorInterface):
 
         with open(temp, 'r') as reader:
             for line in reader.readlines():
-                line = line.strip('\n\r').strip()
+                line = line.strip('\n\r')
                 if len(line) > 0:
                     parsed = [word.strip() for word in line.split('-')]
                     new_quote = QuoteModel(parsed[0], parsed[1])
