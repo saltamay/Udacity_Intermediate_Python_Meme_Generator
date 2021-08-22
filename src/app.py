@@ -19,9 +19,16 @@ def setup():
                    './_data/DogQuotes/DogQuotesPDF.pdf',
                    './_data/DogQuotes/DogQuotesCSV.csv']
 
-    # TODO: Use the Ingestor class to parse all files in the
-    # quote_files variable
-    quotes = None
+    quotes = []
+
+    for file_path in quote_files:
+        try:
+            quotes = quotes + Ingestor.parse(file_path)
+        except FileNotFoundError:
+            print(f'File does not exist - {file_path}')
+        except TypeError:
+            print(f'Cannot parse the file type provided - {file_path}')
+
 
     images_path = "./_data/photos/dog/"
 
