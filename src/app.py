@@ -73,5 +73,4 @@ def meme_post():
 
 
 if __name__ == "__main__":
-    meme.make_meme('./_data/photos/dog/xander_1.jpg', 'Woof!', 'Xander')
     app.run()
