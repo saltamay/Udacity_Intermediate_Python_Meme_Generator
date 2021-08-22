@@ -29,12 +29,9 @@ def setup():
         except TypeError:
             print(f'Cannot parse the file type provided - {file_path}')
 
-
     images_path = "./_data/photos/dog/"
 
-    # TODO: Use the pythons standard library os class to find all
-    # images within the images images_path directory
-    imgs = None
+    imgs = [file for file in os.listdir(images_path)]
 
     return quotes, imgs
 
