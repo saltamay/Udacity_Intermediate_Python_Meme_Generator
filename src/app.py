@@ -3,7 +3,8 @@ import os
 import requests
 from flask import Flask, render_template, abort, request
 
-# @TODO Import your Ingestor and MemeEngine classes
+from MemeEngine import MemeEngine
+from QuoteEngine import Ingestor
 
 app = Flask(__name__)
 
@@ -72,4 +73,5 @@ def meme_post():
 
 
 if __name__ == "__main__":
+    meme.make_meme('./_data/photos/dog/xander_1.jpg', 'Woof!', 'Xander')
     app.run()
