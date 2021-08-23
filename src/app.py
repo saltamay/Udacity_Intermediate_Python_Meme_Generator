@@ -31,7 +31,8 @@ def setup():
 
     images_path = "./_data/photos/dog/"
 
-    imgs = [file for file in os.listdir(images_path)]
+    imgs = [os.path.join(images_path, file) for file in os.listdir(images_path) if
+            os.path.isfile(os.path.join(images_path, file))]
 
     return quotes, imgs
 
@@ -43,13 +44,8 @@ quotes, imgs = setup()
 def meme_rand():
     """ Generate a random meme """
 
-    # @TODO:
-    # Use the random python standard library class to:
-    # 1. select a random image from imgs array
-    # 2. select a random quote from the quotes array
-
-    img = None
-    quote = None
+    img = imgs[random.randint(0, len(imgs) - 1)]
+    quote = quotes[random.randint(0, len(quotes) - 1)]
     path = meme.make_meme(img, quote.body, quote.author)
     return render_template('meme.html', path=path)
 
@@ -64,14 +60,20 @@ def meme_form():
 def meme_post():
     """ Create a user defined meme """
 
-    # @TODO:
-    # 1. Use requests to save the image from the image_url
-    #    form param to a temp local file.
-    # 2. Use the meme object to generate a meme using this temp
-    #    file and the body and author form paramaters.
-    # 3. Remove the temporary saved image.
+    image_url = request.form.get("image_url")
+    quote_body = request.form.get("body")
+    quote_author = request.form.get("author")
 
-    path = None
+    temp = f'./tmp/{random.randint(0, 1000000)}.jpg'
+    image_request = requests.get(image_url, stream=True)
+
+    if image_request.status_code == 200:
+        with open(temp, 'wb') as file:
+            file.write(image_request.content)
+
+    path = meme.make_meme(temp, quote_body, quote_author)
+
+    os.remove(temp)
 
     return render_template('meme.html', path=path)
 
