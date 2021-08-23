@@ -28,10 +28,10 @@ class MemeEngine:
 
         if text is not None:
             draw = ImageDraw.Draw(img)
-            font_body = ImageFont.truetype('./fonts/LilitaOne-Regular.ttf', size=38)
-            font_author = ImageFont.truetype('./fonts/LilitaOne-Regular.ttf', size=22)
-            top = random.randint(0, height)
-            left = random.randint(0, width)
+            font_body = ImageFont.truetype('./fonts/LilitaOne-Regular.ttf', size=32)
+            font_author = ImageFont.truetype('./fonts/LilitaOne-Regular.ttf', size=20)
+            top = random.randint(0 + font_body.size, height - (font_body.size + font_author.size))
+            left = random.randint(0, 30)
             draw.text((left, top), text,
                       font=font_body,
                       fill='black', stroke_width=1, stroke_fill='white')
@@ -42,4 +42,5 @@ class MemeEngine:
         img_name = f'{random.randint(0, 1000000)}.jpg'
         output_path = f'{self.output_dir}/{img_name}'
         img.save(output_path)
+
         return output_path

@@ -16,7 +16,7 @@ def setup():
 
     quote_files = ['./_data/DogQuotes/DogQuotesTXT.txt',
                    './_data/DogQuotes/DogQuotesDOCX.docx',
-                   './_data/DogQuotes/DogQuotesPDF.pdf',
+                   # './_data/DogQuotes/DogQuotesPDF.pdf',
                    './_data/DogQuotes/DogQuotesCSV.csv']
 
     quotes = []
@@ -31,8 +31,9 @@ def setup():
 
     images_path = "./_data/photos/dog/"
 
-    imgs = [file for file in os.listdir(images_path)]
-
+    imgs = [os.path.join(images_path, file) for file in os.listdir(images_path) if
+            os.path.isfile(os.path.join(images_path, file))]
+    print(imgs)
     return quotes, imgs
 
 
@@ -43,13 +44,8 @@ quotes, imgs = setup()
 def meme_rand():
     """ Generate a random meme """
 
-    # @TODO:
-    # Use the random python standard library class to:
-    # 1. select a random image from imgs array
-    # 2. select a random quote from the quotes array
-
-    img = None
-    quote = None
+    img = imgs[random.randint(0, len(imgs) - 1)]
+    quote = quotes[random.randint(0, len(quotes) - 1)]
     path = meme.make_meme(img, quote.body, quote.author)
     return render_template('meme.html', path=path)
 
