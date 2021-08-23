@@ -33,7 +33,7 @@ def setup():
 
     imgs = [os.path.join(images_path, file) for file in os.listdir(images_path) if
             os.path.isfile(os.path.join(images_path, file))]
-    print(imgs)
+
     return quotes, imgs
 
 
@@ -60,14 +60,20 @@ def meme_form():
 def meme_post():
     """ Create a user defined meme """
 
-    # @TODO:
-    # 1. Use requests to save the image from the image_url
-    #    form param to a temp local file.
-    # 2. Use the meme object to generate a meme using this temp
-    #    file and the body and author form paramaters.
-    # 3. Remove the temporary saved image.
+    image_url = request.form.get("image_url")
+    quote_body = request.form.get("body")
+    quote_author = request.form.get("author")
 
-    path = None
+    temp = f'./tmp/{random.randint(0, 1000000)}.jpg'
+    image_request = requests.get(image_url, stream=True)
+
+    if image_request.status_code == 200:
+        with open(temp, 'wb') as file:
+            file.write(image_request.content)
+
+    path = meme.make_meme(temp, quote_body, quote_author)
+
+    os.remove(temp)
 
     return render_template('meme.html', path=path)
 
