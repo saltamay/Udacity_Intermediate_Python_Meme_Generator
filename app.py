@@ -8,7 +8,7 @@ from QuoteEngine import Ingestor
 
 app = Flask(__name__)
 
-meme = MemeEngine('./static')
+meme = MemeEngine('static')
 
 
 def setup():
@@ -29,7 +29,7 @@ def setup():
         except TypeError:
             print(f'Cannot parse the file type provided - {file_path}')
 
-    images_path = "./_data/photos/dog/"
+    images_path = "_data/photos/dog/"
 
     imgs = [os.path.join(images_path, file) for file in os.listdir(images_path) if
             os.path.isfile(os.path.join(images_path, file))]
@@ -47,13 +47,13 @@ def meme_rand():
     img = imgs[random.randint(0, len(imgs) - 1)]
     quote = quotes[random.randint(0, len(quotes) - 1)]
     path = meme.make_meme(img, quote.body, quote.author)
-    return render_template('meme.html', path=path)
+    return render_template('templates/meme.html', path=path)
 
 
 @app.route('/create', methods=['GET'])
 def meme_form():
     """ User input for meme information """
-    return render_template('meme_form.html')
+    return render_template('templates/meme_form.html')
 
 
 @app.route('/create', methods=['POST'])
@@ -75,7 +75,7 @@ def meme_post():
 
     os.remove(temp)
 
-    return render_template('meme.html', path=path)
+    return render_template('templates/meme.html', path=path)
 
 
 if __name__ == "__main__":
