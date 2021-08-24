@@ -3,7 +3,7 @@ import random
 import argparse
 
 from MemeEngine import MemeEngine
-from QuoteEngine import Ingestor
+from QuoteEngine import Ingestor, QuoteModel
 
 
 def generate_meme(path=None, body=None, author=None):
@@ -24,7 +24,7 @@ def generate_meme(path=None, body=None, author=None):
     if body is None:
         quote_files = ['./_data/DogQuotes/DogQuotesTXT.txt',
                        './_data/DogQuotes/DogQuotesDOCX.docx',
-                       # './_data/DogQuotes/DogQuotesPDF.pdf',
+                       './_data/DogQuotes/DogQuotesPDF.pdf',
                        './_data/DogQuotes/DogQuotesCSV.csv']
         quotes = []
         for f in quote_files:

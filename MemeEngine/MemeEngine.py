@@ -8,7 +8,12 @@ class MemeEngine:
     def __init__(self, output_dir: str) -> None:
         self.output_dir = output_dir
 
-    def make_meme(self, img_path: str, text: str, author: str, width=500) -> str:
+    def make_meme(
+            self,
+            img_path: str,
+            text: str,
+            author: str,
+            width=500) -> str:
         """Create a meme with a caption
 
         Arguments:
@@ -28,9 +33,12 @@ class MemeEngine:
 
         if text is not None:
             draw = ImageDraw.Draw(img)
-            font_body = ImageFont.truetype('./fonts/LilitaOne-Regular.ttf', size=32)
-            font_author = ImageFont.truetype('./fonts/LilitaOne-Regular.ttf', size=20)
-            top = random.randint(0 + font_body.size, height - (font_body.size + font_author.size))
+            font_body = ImageFont.truetype(
+                './fonts/LilitaOne-Regular.ttf', size=32)
+            font_author = ImageFont.truetype(
+                './fonts/LilitaOne-Regular.ttf', size=20)
+            top = random.randint(0 + font_body.size,
+                                 height - (font_body.size + font_author.size))
             left = random.randint(0, 30)
             draw.text((left, top), text,
                       font=font_body,

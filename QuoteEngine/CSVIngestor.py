@@ -10,6 +10,13 @@ class CSVIngestor(IngestorInterface):
 
     @classmethod
     def parse(cls, path: str) -> List[QuoteModel]:
+        """ Parse a csv file that contains quotes and authors
+
+        Arguments:
+            path {str} -- the file location for the input file.
+        Returns:
+            List[QuoteModel] -- list of quotes.
+        """
         if not cls.can_ingest(path):
             raise Exception('cannot ingest exception')
 

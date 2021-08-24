@@ -9,6 +9,13 @@ class TXTIngestor(IngestorInterface):
 
     @classmethod
     def parse(cls, path: str) -> List[QuoteModel]:
+        """ Parse a txt file that contains quotes and authors
+
+        Arguments:
+            path {str} -- the file location for the input file.
+        Returns:
+            List[QuoteModel] -- list of quotes.
+        """
         if not cls.can_ingest(path):
             raise Exception('cannot ingest exception')
 
@@ -22,5 +29,3 @@ class TXTIngestor(IngestorInterface):
                     quotes.append(new_quote)
 
         return quotes
-
-
