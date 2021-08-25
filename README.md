@@ -53,3 +53,18 @@ The server runs on http://127.0.0.1:5000/
 * pandas
 * flask
 * requests
+
+## Feature Improvements
+
+- Make it Unique. Add your own content (images and quotes).
+- Unit test everything. Define unit tests to ensure your code functions as intended.
+- Deploy as a Webapp. Deploy the flask server to Heroku so that it can be accessed publicly.
+- Extend your system. Be creative by using your meme generator in unique ways – ideas include:
+- Sharing the generated image with an email
+- Using a 3rd party API to dynamically add more information. You can check out a bunch of 3rd party APIs 
+  [here](https://apilist.fun/). 
+  Some possibilities are:
+  - Weather, traffic, locations
+  - Use Amazon Rekognition to identify the image content and define rules to choose the quote category
+
+
