@@ -28,7 +28,12 @@ def generate_meme(path=None, body=None, author=None):
                        './_data/DogQuotes/DogQuotesCSV.csv']
         quotes = []
         for f in quote_files:
-            quotes.extend(Ingestor.parse(f))
+            try:
+                quotes.extend(Ingestor.parse(f))
+            except FileNotFoundError:
+                print(f'Uh oh, something went wrong - {f}')
+            except TypeError:
+                print(f"Invalid file type '{f}'. Please try again.")
 
         quote = random.choice(quotes)
     else:

@@ -25,9 +25,9 @@ def setup():
         try:
             quotes = quotes + Ingestor.parse(file_path)
         except FileNotFoundError:
-            print(f'File does not exist - {file_path}')
+            print(f'Uh oh, something went wrong - {file_path}')
         except TypeError:
-            print(f'Cannot parse the file type provided - {file_path}')
+            print(f"Invalid file type '{file_path}'. Please try again.")
 
     images_path = "_data/photos/dog/"
 
