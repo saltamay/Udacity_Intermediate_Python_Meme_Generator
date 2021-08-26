@@ -1,4 +1,4 @@
-import os
+import textwrap
 import random
 from PIL import Image, ImageDraw, ImageFont
 
@@ -32,17 +32,20 @@ class MemeEngine:
         img = img.resize((width, height), Image.NEAREST)
 
         if text is not None:
+            wrapper = textwrap.TextWrapper(width=30)
             draw = ImageDraw.Draw(img)
             font_body = ImageFont.truetype(
                 './fonts/LilitaOne-Regular.ttf', size=32)
             font_author = ImageFont.truetype(
                 './fonts/LilitaOne-Regular.ttf', size=20)
-            top = random.randint(0 + font_body.size,
-                                 height - (font_body.size + font_author.size))
-            left = random.randint(0, 30)
-            draw.text((left, top), text,
-                      font=font_body,
-                      fill='black', stroke_width=1, stroke_fill='white')
+            top = random.randint(height / 4, 3 * height / 4)
+            left = random.randint(10, 30)
+
+            for word in wrapper.wrap(text=text):
+                top = top + font_body.size
+                draw.text((left, top), word,
+                          font=font_body,
+                          fill='black', stroke_width=1, stroke_fill='white')
             draw.text((left + 10, top + font_body.size), f'- {author}',
                       font=font_author,
                       fill='black', stroke_width=1, stroke_fill='white')
