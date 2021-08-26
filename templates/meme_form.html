@@ -1,6 +1,11 @@
 {% extends "base.html" %}
 {% block title %}Meme Generator{% endblock %}
 {% block body %}
+{% if error %}
+    <div class="alert alert-danger" role="alert" style="width: 500px; max-width: 100%;">
+        {{ error }}
+    </div>
+{% endif %}
 <div class="card" style="width: 500px; max-width: 100%;">
     <div class="card-body">
         <form action="{{url_for('meme_post')}}" method="POST">

@@ -67,21 +67,26 @@ def meme_post():
     quote_body = request.form.get("body")
     quote_author = request.form.get("author")
 
-    if not os.path.isdir('./tmp'):
-        os.makedirs('./tmp')
+    try:
+        if not os.path.isdir('./tmp'):
+            os.makedirs('./tmp')
 
-    temp = f'./tmp/{random.randint(0, 1000000)}.jpg'
-    image_request = requests.get(image_url, stream=True)
+        temp = f'./tmp/{random.randint(0, 1000000)}.jpg'
+        image_request = requests.get(image_url, stream=True)
 
-    if image_request.status_code == 200:
-        with open(temp, 'wb') as file:
-            file.write(image_request.content)
+        if image_request.status_code == 200:
+            with open(temp, 'wb') as file:
+                file.write(image_request.content)
 
-    path = meme.make_meme(temp, quote_body, quote_author)
+            path = meme.make_meme(temp, quote_body, quote_author)
 
-    os.remove(temp)
+            os.remove(temp)
 
-    return render_template('meme.html', path=path)
+            return render_template('meme.html', path=path)
+    except BaseException:
+        return render_template(
+            'meme_form.html',
+            error="Uh oh! Something went wrong, please try again.")
 
 
 if __name__ == "__main__":
