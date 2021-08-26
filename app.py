@@ -51,13 +51,13 @@ def meme_rand():
     img = imgs[random.randint(0, len(imgs) - 1)]
     quote = quotes[random.randint(0, len(quotes) - 1)]
     path = meme.make_meme(img, quote.body, quote.author)
-    return render_template('templates/meme.html', path=path)
+    return render_template('meme.html', path=path)
 
 
 @app.route('/create', methods=['GET'])
 def meme_form():
     """ User input for meme information """
-    return render_template('templates/meme_form.html')
+    return render_template('meme_form.html')
 
 
 @app.route('/create', methods=['POST'])
@@ -66,6 +66,9 @@ def meme_post():
     image_url = request.form.get("image_url")
     quote_body = request.form.get("body")
     quote_author = request.form.get("author")
+
+    if not os.path.isdir('./tmp'):
+        os.makedirs('./tmp')
 
     temp = f'./tmp/{random.randint(0, 1000000)}.jpg'
     image_request = requests.get(image_url, stream=True)
@@ -78,7 +81,7 @@ def meme_post():
 
     os.remove(temp)
 
-    return render_template('templates/meme.html', path=path)
+    return render_template('meme.html', path=path)
 
 
 if __name__ == "__main__":
